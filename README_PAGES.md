@@ -1,0 +1,1 @@
+См. Settings → Pages: Deploy from a branch → main → /(root). Обновите кеш страницы после деплоя.
