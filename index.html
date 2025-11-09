@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jazz‑Funk — Танцуй уверенно где угодно и когда угодно</title>
+<style>/* styles trimmed for brevity in this cell */</style>
+</head>
+<body>
+<!-- ... content trimmed ... -->
+<script>
+function sendAnalytics(action, meta) {
+  fetch("https://script.google.com/macros/s/174X_fcKPe4OnwCwCI0D0t2wDsHiVEV7-632u13UQsIirpnH6eLg3Y-dk/exec", {
+    method:"POST",
+    mode:"no-cors",
+    keepalive:true,
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body: JSON.stringify({ event:"click", action, meta, ts:new Date().toISOString(), ua:navigator.userAgent })
+  }).catch(()=>{});
+}
+const leadForm=document.getElementById('leadForm');
+leadForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(leadForm).entries());
+  const params = new URLSearchParams({ event:"lead", ts:new Date().toISOString(), ...data });
+  try{
+    await fetch("https://script.google.com/macros/s/174X_fcKPe4OnwCwCI0D0t2wDsHiVEV7-632u13UQsIirpnH6eLg3Y-dk/exec", {
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
+      body: params.toString()
+    });
+    alert("Заявка отправлена!");
+    leadForm.reset();
+  }catch(err){ console.error(err); alert("Ошибка отправки"); }
+});
+</script>
+</body>
+</html>
